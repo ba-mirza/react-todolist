@@ -19,7 +19,7 @@ function App() {
 
     return (
         <div className="App">
-            <TodoList title={text}/>
+            <TodoList text={text} todo={todo}/>
         </div>
     );
 }
