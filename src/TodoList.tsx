@@ -1,4 +1,5 @@
 import React from "react";
+import { FilterValuesType } from "./App";
 
 type Todo = {
     id: number,
@@ -7,8 +8,10 @@ type Todo = {
 }
 
 type propsType = {
-    todo: Todo[];
-    text?: string
+    todos: Todo[],
+    text?: string,
+    removeTodo: (id: number) => void,
+    changeFilter: (value: FilterValuesType) => void
 }
 
 export const TodoList: React.FC<any> = (props: propsType) => {
@@ -22,18 +25,18 @@ export const TodoList: React.FC<any> = (props: propsType) => {
             </div>
             <ul>
                 {
-                    props.todo.map((todo) => (
-                        <li>
+                    props.todos.map((todo) => (
+                        <li key={todo.id}>
                             <input type="checkbox" checked={todo.checked}/>
                             <span>{todo.title}</span>
-                            <button onClick={({target}) => console.log(target)}>x</button>
+                            <button onClick={() => {props.removeTodo(todo.id)}}>x</button>
                         </li>
                     ))
                 }
             </ul>
-            <button>All</button>
-            <button>Active</button>
-            <button>Completed</button>
+            <button onClick={() => props.changeFilter("All")}>All</button>
+            <button onClick={() => props.changeFilter("Active")}>Active</button>
+            <button onClick={() => props.changeFilter("Completed")}>Completed</button>
         </div>
     );
 }
